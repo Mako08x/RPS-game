@@ -1,0 +1,87 @@
+# scissors paper rock 2.1
+# What's new? : Fixed user input error.
+
+import sys
+import random
+from enum import Enum
+
+player_score = 0
+python_score = 0
+
+def play():
+
+    class RPS(Enum):
+        SCISSORS = "1"
+        PAPER = "2"
+        ROCK = "3"
+
+    print(" ")
+    player = input("Choose\n1 for Scissors \n2 for paper \n3 for rock.")
+    
+    
+    if player not in ["1", "2", "3"]:
+        print("You must enter 1, 2 or 3.")
+        return play()         
+
+    computer = random.choice("123")
+    
+    y = int(computer)
+    x = int(player)
+    
+    print(" ".ljust(16,'-'))
+    print(f"You chose {str(RPS(player)).replace('RPS.', '')}.")
+    print(f"Python chose {str(RPS(computer)).replace('RPS.', '')}.")
+    print(" ")
+    
+    def decide_winner(player, computer):
+        if player == "1" and computer == "2":
+            return "You win!"
+        elif player == "2" and computer == "3":
+            return "You win!"    
+        elif player == "3" and computer == "1":
+            return "You win!"    
+        elif player == computer:
+            return "That's a tie."
+        else:
+            return "Python Wins!"
+    
+    if int(player) == int(computer) - 1 or player == '3' and computer == '1':
+        global player_score
+        player_score += 1
+    elif int(player) == int(computer):
+        player_score += 0
+        global python_score
+        python_score += 0
+    else:
+        python_score += 1
+        
+        
+    game_result = decide_winner(player, computer)
+    print(game_result)
+    print(f'\nYour score: {player_score}\nPython score: {python_score}')
+    print('\nPlay again?')
+    
+    while True:
+        playagain = input('y for yes, n for no.')
+        if playagain == 'y':
+            play()
+        elif playagain == 'Y':
+            play()
+        elif playagain == 'n':
+            if player_score > python_score:
+                sys.exit(f'\n🏆You win!: You {player_score} - {python_score} Python')
+            elif player_score < python_score:
+                sys.exit(f'\n🐍You lose: Python {python_score} - {player_score} You')
+            elif player_score == python_score:
+                sys.exit('\nDraw')
+        elif playagain == 'N':
+            if player_score > python_score:
+                sys.exit(f'\n🏆You win!: You {player_score} - {python_score} Python')
+            elif player_score < python_score:
+                sys.exit(f'\n🐍You lose: Python {python_score} - {player_score} You')
+            elif player_score == python_score:
+                sys.exit('\nDraw')
+        else:
+            print(f'{playagain} is not a valid answer')
+            continue
+play()
