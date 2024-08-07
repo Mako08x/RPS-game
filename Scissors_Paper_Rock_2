@@ -1,0 +1,42 @@
+# scissors paper rock 1.1
+# What's new? : Restart system/game.
+
+import sys
+import random
+from enum import Enum
+class RPS(Enum):
+    SCISSORS = "1"
+    PAPER = "2"
+    ROCK = "3"
+
+playagain = True
+
+while playagain:
+ print(" ")
+ player = input("Choose\n1 for Scissors \n2 for paper \n3 for rock.")
+ x = int(player)
+ if x < 1 or x > 3:
+     sys.exit(f"{x} is not a valid answer")
+ computer = random.choice("123")
+ y = int(computer)
+ print(" ")
+ print(f"You chose {str(RPS(player)).replace('RPS.', '')}.")
+ print(f"Python chose {str(RPS(computer)).replace('RPS.', '')}.")
+ print(" ")
+ if player == "1" and computer == "2":
+     print("You win!")
+ elif player == "2" and computer == "3":
+     print("You win!")
+ elif player == "3" and computer == "1":
+     print("You win!")  
+ elif player == computer:
+     print("That's a tie.")
+ else: print("Python Wins!")
+
+ playagain = input('\nPlay again? \ny for yes.\nn for no.')
+ if playagain.lower() == "y":
+    continue
+ else:
+    playagain = False
+    print('\nLeaving the Rock Paper Scissors!')
+sys.exit('Bye!')
